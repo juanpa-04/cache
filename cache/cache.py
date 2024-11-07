@@ -17,6 +17,7 @@ class Cache:
         # Contadores de estadísticas
         self.hits = 0
         self.misses = 0
+        self.reemplazos = 0
 
         self._init_SRAM()
        
@@ -39,6 +40,7 @@ class Cache:
             return HIT
         
         if len(cache_set) == self.S:
+            self.reemplazos += 1
             cache_set.popleft()
 
         cache_set.append(tag_bits)
@@ -78,3 +80,4 @@ class Cache:
     def reportar_estadisticas(self):
         print(f"Hits: {self.hits}")
         print(f"Misses: {self.misses}")
+        print(f"Reemplazos: {self.reemplazos}")
