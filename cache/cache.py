@@ -39,7 +39,7 @@ class Cache:
             self.hits += 1             # Incrementa el contador de estadísticas
             return HIT
         
-        if len(cache_set) == self.S:
+        if len(cache_set) == self.N:  # Se respeta el límite  de asociatividad
             self.reemplazos += 1
             cache_set.popleft()
 
@@ -78,6 +78,9 @@ class Cache:
         return (int(word) >> int(start)) & mask
     
     def reportar_estadisticas(self):
+        total_accesses = self.hits + self.misses
+        hit_rate = (self.hits / total_accesses) * 100 if total_accesses > 0 else 0
         print(f"Hits: {self.hits}")
         print(f"Misses: {self.misses}")
         print(f"Reemplazos: {self.reemplazos}")
+        print(f"Hit Rate: {hit_rate:.2f}%")
