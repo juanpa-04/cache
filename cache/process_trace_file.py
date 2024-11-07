@@ -33,7 +33,3 @@ def read_trace_file(trace_file):
         print(f"Error: No se encontró el archivo '{trace_file}'. Asegúrate de que el archivo está en la ubicación correcta.")
     except Exception as e:
         print(f"Error al leer el archivo '{trace_file}': {e}")
-
-# Ejecuta la función de lectura con el archivo trace.out
-trace_file = "trace.out"  # Nombre del archivo descomprimido
-read_trace_file(trace_file)
