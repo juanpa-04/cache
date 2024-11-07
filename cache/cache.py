@@ -8,40 +8,40 @@ class Cache:
     VALID_BIT = 1
     
 
-# Función para leer y procesar el archivo trace.out (imprimir solo el total al final, ya que no tengo el cache xd)
-def read_trace_file(trace_file):
-    try:
-        # Abre el archivo trace en modo de lectura
-        with open(trace_file, 'r') as f:
-            line_count = 0  # Contador de líneas procesadas
-            for line in f:
-                # Elimina espacios, carácter '#' al comienzo de cada línea
-                line = line.strip().lstrip("#").strip()
+    # Función para leer y procesar el archivo trace.out (imprimir solo el total al final, ya que no tengo el cache xd)
+    def read_trace_file(trace_file):
+        try:
+            # Abre el archivo trace en modo de lectura
+            with open(trace_file, 'r') as f:
+                line_count = 0  # Contador de líneas procesadas
+                for line in f:
+                    # Elimina espacios, carácter '#' al comienzo de cada línea
+                    line = line.strip().lstrip("#").strip()
 
-                # Verifica que la línea no esté vacía después de eliminar el `#`
-                if not line:
-                    continue
+                    # Verifica que la línea no esté vacía después de eliminar el `#`
+                    if not line:
+                        continue
 
-                # Lee y separa los valores en cada línea
-                parts = line.split()
+                    # Lee y separa los valores en cada línea
+                    parts = line.split()
 
-                # Verifica que la línea tenga el formato correcto
-                if len(parts) != 3:
-                    continue
+                    # Verifica que la línea tenga el formato correcto
+                    if len(parts) != 3:
+                        continue
 
-                # Obtiene cada valor del formato de traza
-                ls = int(parts[0])  # Tipo de acceso (0 para load, 1 para store)
-                address = parts[1]  # Dirección en hexadecimal
-                ic = int(parts[2])  # Número de instrucciones (IC)
+                    # Obtiene cada valor del formato de traza
+                    ls = int(parts[0])  # Tipo de acceso (0 para load, 1 para store)
+                    address = parts[1]  # Dirección en hexadecimal
+                    ic = int(parts[2])  # Número de instrucciones (IC)
 
-                # Incrementa el contador de líneas procesadas
-                line_count += 1
+                    # Incrementa el contador de líneas procesadas
+                    line_count += 1
 
-            print(f"\nProcesamiento completado. Total de líneas leídas: {line_count}")
-    except FileNotFoundError:
-        print(f"Error: No se encontró el archivo '{trace_file}'. Asegúrate de que el archivo está en la ubicación correcta.")
-    except Exception as e:
-        print(f"Error al leer el archivo '{trace_file}': {e}")
+                print(f"\nProcesamiento completado. Total de líneas leídas: {line_count}")
+        except FileNotFoundError:
+            print(f"Error: No se encontró el archivo '{trace_file}'. Asegúrate de que el archivo está en la ubicación correcta.")
+        except Exception as e:
+            print(f"Error al leer el archivo '{trace_file}': {e}")
 
 
     def __init__(self, capacity:int, block_size:int, associativity:int):
@@ -52,23 +52,13 @@ def read_trace_file(trace_file):
         self.S = int(self.B/self.N) # Sets
 
         # Contadores de estadísticas
-        self.hits() = 0
-        self.misses() = 0
+        self.hits = 0
+        self.misses = 0
 
-        self._ini_SRAM()
+        self._init_SRAM()
        
-       
-    def _init_SRAM(self) -> None:    
-
-        block = [[None]*self.B]
-        self.TAG_SRAM = {i: [None]*self.N for i in range(self.S)}
-        #self.DATA_SRAM = {i: block*self.N for i in range(self.S)}
-        self.VALID = {i: [None]*self.N for i in range(self.S)}
-        self.LRU = {i: None for i in range(self.S)}
-
-    def _ini_SRAM(self) -> None:
+    def _init_SRAM(self) -> None:
         self.SRAM = {i: deque(maxlen=self.N) for i in range(self.S)}
-        self.VALID = {i: [None]*self.N for i in range(self.S)}
 
     def access(self, addr:int) -> bool:
 
