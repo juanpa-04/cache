@@ -52,8 +52,9 @@ def read_trace_file(trace_file):
         self.S = int(self.B/self.N) # Sets
 
         # Contadores de estadísticas
-        self.hits() = 0
-        self.misses() = 0
+        self.hits = 0
+        self.misses = 0
+        self.reemplazos = 0
 
         self._ini_SRAM()
        
@@ -87,6 +88,7 @@ def read_trace_file(trace_file):
         
         if len(cache_set) == self.S:
             cache_set.popleft()
+            self.reemplazos += 1
 
         cache_set.append(tag_bits)
         self.misses += 1               # Incrementa el contador de estadísticas 
@@ -125,6 +127,7 @@ def read_trace_file(trace_file):
     def reportar_estadisticas(self):
         print(f"Hits: {self.hits}")
         print(f"Misses: {self.misses}")
+        print(f"Reemplazos: {self.reemplazos}")
 
 
 cache = Cache(16, 2, 2)
