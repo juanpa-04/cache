@@ -1,3 +1,4 @@
+#Esto es como leer el archivo trace.out, que es descomprimiendo "mcf.trace.gz" xd, falta el cache, para poder conectarselo.
 # Función para leer y procesar el archivo trace.out (imprimir solo el total al final, ya que no tengo el cache xd)
 def read_trace_file(trace_file):
     try:
