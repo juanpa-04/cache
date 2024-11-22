@@ -2,7 +2,7 @@ from cache import Cache
 from process_trace_file import read_trace_file
 
 # Archivo de traza
-trace_file = "trace.out"
+trace_file = "./cache/trace.out"
 
 def run_test_suite():
     print("== Ejecución de pruebas con y sin optimización avanzada ==")
